@@ -13,8 +13,8 @@ app.include_router(productos_router)
 
 def open_docs():
     time.sleep(3)
-    webbrowser.open("http://127.0.0.1:8000/docs")
+    webbrowser.open("http://192.168.0.100:8000/docs")
 
 if __name__ == "__main__":
     threading.Thread(target=open_docs).start()  
-    uvicorn.run(app, host="127.0.0.1", port=8000)
+    uvicorn.run(app, host="192.168.0.100", port=8000)

@@ -7,7 +7,7 @@ DB_PASSWORD = 'ABC1238f27$'
 
 def obtener_cadena_conexion():
     return (
-        f"DRIVER={{ODBC Driver 17 for SQL Server}};"
+        f"DRIVER={{SQL Server}};"
         f"SERVER={DB_SERVER};"
         f"DATABASE={DB_DATABASE};"
         f"UID={DB_USERNAME};"
