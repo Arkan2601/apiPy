@@ -18,12 +18,12 @@ def conectar_bd():
 
 # Ruta para insertar un producto
 @router.post("/productos/")
-def insertar_producto(nombre: str, precio: float, estatus: int):
+def insertar_producto(nombre: str, precio: float):
     conexion = conectar_bd()
     cursor = conexion.cursor()
 
     try:
-        cursor.execute("EXEC Sp_InsertProducto ?, ?, ?", (nombre, precio, estatus))
+        cursor.execute("EXEC Sp_InsertProducto ?, ?", (nombre, precio))
         conexion.commit()
         return {"mensaje": "Producto insertado correctamente"}
     except Exception as e:
@@ -50,12 +50,12 @@ def obtener_productos():
 
 # Ruta para actualizar un producto
 @router.put("/productos/{producto_id}")
-def actualizar_producto(producto_id: int, nombre: str, precio: float, estatus: int):
+def actualizar_producto(producto_id: int, nombre: str, precio: float):
     conexion = conectar_bd()
     cursor = conexion.cursor()
 
     try:
-        cursor.execute("EXEC Sp_UpdateProducto ?, ?, ?, ?", (producto_id, nombre, precio, estatus))
+        cursor.execute("EXEC Sp_UpdateProducto ?, ?, ?", (producto_id, nombre, precio))
         conexion.commit()
         return {"mensaje": "Producto actualizado correctamente"}
     except Exception as e:
