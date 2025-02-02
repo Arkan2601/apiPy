@@ -3,7 +3,7 @@ from fastapi import APIRouter, HTTPException
 import pyodbc
 from config import obtener_cadena_conexion
 
-router = APIRouter()
+router = APIRouter(prefix="/api", tags=["Productos"])
 
 # Función para conectar a la base de datos
 def conectar_bd():
@@ -49,7 +49,7 @@ def obtener_productos():
         conexion.close()
 
 # Ruta para actualizar un producto
-@router.put("/productos/{producto_id}")
+@router.put("/productos/{producto_id}/")
 def actualizar_producto(producto_id: int, nombre: str, precio: float):
     conexion = conectar_bd()
     cursor = conexion.cursor()
@@ -65,7 +65,7 @@ def actualizar_producto(producto_id: int, nombre: str, precio: float):
         conexion.close()
 
 # Ruta para eliminar un producto
-@router.delete("/productos/{producto_id}")
+@router.delete("/productos/{producto_id}/")
 def eliminar_producto(producto_id: int):
     conexion = conectar_bd()
     cursor = conexion.cursor()

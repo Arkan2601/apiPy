@@ -1,6 +1,7 @@
 # main.py
 from fastapi import FastAPI
 from productos import router as productos_router
+from roles import router as roles_router
 import uvicorn
 import threading
 import webbrowser
@@ -10,6 +11,7 @@ app = FastAPI()
 
 # Incluir las rutas del archivo productos.py
 app.include_router(productos_router)
+app.include_router(roles_router)
 
 def open_docs():
     time.sleep(3)
