@@ -15,8 +15,6 @@ def conectar_bd():
         print(f" Error al conectar a la base de datos: {e}")
         raise HTTPException(status_code=500, detail="Error al conectar a la base de datos")
 
-
-# Ruta para insertar un producto
 @router.post("/productos/")
 def insertar_producto(nombre: str, precio: float):
     conexion = conectar_bd()
@@ -32,7 +30,6 @@ def insertar_producto(nombre: str, precio: float):
     finally:
         conexion.close()
 
-# Ruta para obtener todos los productos
 @router.get("/productos/")
 def obtener_productos():
     conexion = conectar_bd()
@@ -48,7 +45,6 @@ def obtener_productos():
     finally:
         conexion.close()
 
-# Ruta para actualizar un producto
 @router.put("/productos/{producto_id}/")
 def actualizar_producto(producto_id: int, nombre: str, precio: float):
     conexion = conectar_bd()
@@ -64,7 +60,6 @@ def actualizar_producto(producto_id: int, nombre: str, precio: float):
     finally:
         conexion.close()
 
-# Ruta para eliminar un producto
 @router.delete("/productos/{producto_id}/")
 def eliminar_producto(producto_id: int):
     conexion = conectar_bd()

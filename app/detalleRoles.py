@@ -3,8 +3,9 @@ from fastapi import APIRouter, HTTPException
 import pyodbc
 from config import obtener_cadena_conexion
 
-router = APIRouter(prefix="/api", tags=["Roles"])
+router = APIRouter(prefix="/api", tags=["Detalles de roles"])
 
+# Función para conectar a la base de datos
 def conectar_bd():
     try:
         connectionString = obtener_cadena_conexion()
@@ -14,22 +15,8 @@ def conectar_bd():
         print(f" Error al conectar a la base de datos: {e}")
         raise HTTPException(status_code=500, detail="Error al conectar a la base de datos")
 
-@router.post("/roles/")
-def insertar_rol(rol: str):
-    conexion = conectar_bd()
-    cursor = conexion.cursor()
-
-    try:
-        cursor.execute("EXEC Sp_InsertRol ?", (rol))
-        conexion.commit()
-        return {"mensaje": "Rol insertado correctamente"}
-    except Exception as e:
-        print(f" Error al insertar Rol: {e}")
-        raise HTTPException(status_code=500, detail=f"Error al insertar Rol: {str(e)}")
-    finally:
-        conexion.close()
-
-@router.get("/roles/")
+# Ruta para obtener todos los roles
+@router.get("/detalleRoles/")
 def obtener_roles():
     conexion = conectar_bd()
     cursor = conexion.cursor()
@@ -44,7 +31,8 @@ def obtener_roles():
     finally:
         conexion.close()
 
-@router.put("/roles/{id}/")
+# Ruta para actualizar un Rol
+@router.put("/detalleRoles/{id}/")
 def actualizar_Rol(id: int, rol: str):
     conexion = conectar_bd()
     cursor = conexion.cursor()
@@ -59,7 +47,8 @@ def actualizar_Rol(id: int, rol: str):
     finally:
         conexion.close()
 
-@router.delete("/roles/{id}/")
+# Ruta para eliminar un Rol
+@router.delete("/detalleRoles/{id}/")
 def eliminar_Rol(id: int):
     conexion = conectar_bd()
     cursor = conexion.cursor()

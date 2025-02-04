@@ -1,4 +1,4 @@
-# main.py
+
 from fastapi import FastAPI
 from productos import router as productos_router
 from roles import router as roles_router
@@ -10,7 +10,6 @@ from config import API_HOSTING,API_PORT
 
 app = FastAPI()
 
-# Incluir las rutas del archivo productos.py
 app.include_router(productos_router)
 app.include_router(roles_router)
 
