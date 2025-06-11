@@ -1,7 +1,5 @@
 
 from fastapi import FastAPI
-from productos import router as productos_router
-from roles import router as roles_router
 from clientes import router as clientes_router
 import uvicorn
 import threading
@@ -11,8 +9,6 @@ from config import API_HOSTING,API_PORT
 
 app = FastAPI()
 
-app.include_router(productos_router)
-app.include_router(roles_router)
 app.include_router(clientes_router)
 
 def open_docs():
