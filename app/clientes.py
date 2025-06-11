@@ -31,6 +31,7 @@ def obtener_estatus_cliente(key: str):
         return clientModel(
             Nombre=cliente.nombreCliente,
             idProducto=cliente.idProducto,
+            Descripcion=cliente.Descripcion,
             Estatus=cliente.estatus,
             Upago=cliente.ultimoPago,
             Flimite=cliente.fechaLimite
@@ -40,6 +41,21 @@ def obtener_estatus_cliente(key: str):
         print(f"{e}")
         raise HTTPException(status_code=500, detail=f"{str(e)}")
 
+    finally:
+        conexion.close()
+
+@router.post("/clientes/")
+def insertar_cliente(nombreCliente: str, nombreEmpresa:str, idProducto:int, claveLicencia:str, ultimoPago:str,fechaLimite:str):
+    conexion = conectar_bd()
+    cursor = conexion.cursor()
+
+    try:
+        cursor.execute("EXEC SP_InsertarCliente ?, ?, ? , ?, ? ,?", (nombreCliente, nombreEmpresa, idProducto, claveLicencia, ultimoPago, fechaLimite))
+        response = cursor.fetchone()
+        return { "mensaje": response.msg, "code": response.code }
+    except Exception as e:
+        print(f"{e}")
+        raise HTTPException(status_code=500, detail=f"{str(e)}")
     finally:
         conexion.close()
 
@@ -70,20 +86,5 @@ def obtener_estatus_cliente(key: str):
 #     except Exception as e:
 #         print(f" Error al eliminar producto: {e}")
 #         raise HTTPException(status_code=500, detail=f"Error al eliminar producto: {str(e)}")
-#     finally:
-#         conexion.close()
-
-# @router.post("/clientes/")
-# def insertar_producto(nombreCliente: str, nombreEmpresa:str, idProducto:int, claveLicencia:str, ultimoPago:str,fechaLimite:str):
-#     conexion = conectar_bd()
-#     cursor = conexion.cursor()
-
-#     try:
-#         cursor.execute("EXEC SP_InsertarCliente ?, ?, ? , ?, ? ,?", (nombreCliente, nombreEmpresa, idProducto, claveLicencia, ultimoPago, fechaLimite))
-#         conexion.commit()
-#         return {"mensaje": "Producto insertado correctamente"}
-#     except Exception as e:
-#         print(f" Error al insertar producto: {e}")
-#         raise HTTPException(status_code=500, detail=f"Error al insertar producto: {str(e)}")
 #     finally:
 #         conexion.close()

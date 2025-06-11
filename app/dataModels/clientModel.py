@@ -3,7 +3,8 @@ from typing import Optional
 
 class clientModel(BaseModel):
     Nombre: str
-    idProducto: int
-    Estatus: int
+    idProducto: str
+    Descripcion: str
+    Estatus: str
     Upago: str
     Flimite: str

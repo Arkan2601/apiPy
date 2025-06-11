@@ -1,11 +1,11 @@
 # config.py
 
 DB_SERVER = '67.217.245.127,1433'
-DB_DATABASE = 'Python'
+DB_DATABASE = 'Paycheck'
 DB_USERNAME = 'sa'
 DB_PASSWORD = 'ABC1238f27$'
 
-API_HOSTING = '192.168.0.100'
+API_HOSTING = 'localhost'
 API_PORT = 8000
 
 def obtener_cadena_conexion():
