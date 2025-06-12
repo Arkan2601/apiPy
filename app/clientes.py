@@ -45,15 +45,22 @@ def obtener_estatus_cliente(key: str):
         conexion.close()
 
 @router.post("/clientes/")
-def insertar_cliente(nombreCliente: str, nombreEmpresa:str, idProducto:int, claveLicencia:str, ultimoPago:str,fechaLimite:str):
+def insertar_cliente(nombreCliente: str, nombreEmpresa: str, idProducto: int, claveLicencia: str, ultimoPago: str, fechaLimite: str):
     conexion = conectar_bd()
     cursor = conexion.cursor()
 
     try:
-        cursor.execute("EXEC SP_InsertarCliente ?, ?, ? , ?, ? ,?", (nombreCliente, nombreEmpresa, idProducto, claveLicencia, ultimoPago, fechaLimite))
-        conexion.commit()
+        cursor.execute(
+            "EXEC SP_InsertarCliente ?, ?, ?, ?, ?, ?",
+            (nombreCliente, nombreEmpresa, idProducto, claveLicencia, ultimoPago, fechaLimite)
+        )
+        
         response = cursor.fetchone()
-        return { "mensaje": response.msg, "code": response.code }
+        conexion.commit()
+        if response:
+            return {"mensaje": response.msg, "code": response.code}
+        else:
+            return {"mensaje": "No se recibió respuesta del procedimiento almacenado", "code": 500}
     except Exception as e:
         print(f"{e}")
         raise HTTPException(status_code=500, detail=f"{str(e)}")
