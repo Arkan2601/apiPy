@@ -51,6 +51,7 @@ def insertar_cliente(nombreCliente: str, nombreEmpresa:str, idProducto:int, clav
 
     try:
         cursor.execute("EXEC SP_InsertarCliente ?, ?, ? , ?, ? ,?", (nombreCliente, nombreEmpresa, idProducto, claveLicencia, ultimoPago, fechaLimite))
+        conexion.commit()
         response = cursor.fetchone()
         return { "mensaje": response.msg, "code": response.code }
     except Exception as e:
