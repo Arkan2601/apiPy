@@ -5,7 +5,7 @@ DB_DATABASE = 'Python'
 DB_USERNAME = 'sa'
 DB_PASSWORD = 'ABC1238f27$'
 
-API_HOSTING = "0.0.0.0"  # Permite conexiones desde cualquier IP
+API_HOSTING = "192.168.54.151"  # Permite conexiones desde cualquier IP
 API_PORT = 8000
 
 

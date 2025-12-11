@@ -3,7 +3,7 @@ from fastapi import FastAPI
 import uvicorn
 import threading
 import webbrowser
-import time
+import time 
 from config import API_HOSTING,API_PORT
 """ modulos """
 from productos import router as productos_router
@@ -19,6 +19,7 @@ app.include_router(productos_router)
 app.include_router(login_router)
 app.include_router(detalleRoles_router)
 app.include_router(roles_router)
+
 
 def open_docs():
     time.sleep(3)
